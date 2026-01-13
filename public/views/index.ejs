@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <h1 class="form-header">Write Post</h1>
+    <% if (error) { %>
+        <p class="error"><%= error %></p>
+    <% } %>
+    <form action="/compose" method="post" class="form-row" novalidate>
+        <% if (typeof editId !== 'undefined' && editId !== null) { %>
+            <input type="hidden" name="editId" value="<%= editId %>">
+        <% } %>
+        <input type="text" name="postTitle" placeholder="Title" value="<%= typeof prevTitle !== 'undefined' ? prevTitle : '' %>" required>
+        <textarea name="postBody" placeholder="Write your post here..." required><%= typeof prevBody !== 'undefined' ? prevBody : '' %></textarea>
+        <button type="submit" class="btn-primary"><%= typeof editId !== 'undefined' && editId !== null ? 'Update' : 'Publish' %></button>
+        <% if (typeof editId !== 'undefined' && editId !== null) { %>
+            <a href="/" class="btn-cancel">Cancel</a>
+        <% } %>
+    </form>
+
+    <h1 class="posts-header">Posts</h1> 
+    <% if (!posts || posts.length === 0) { %>
+        <p style="text-align:center;color:#ddd">No posts yet!</p>
+    <% } else { %>
+        <% posts.forEach(function(post, index){ %>
+            <div class="posttile">
+                <h2 class="links"><a href="/posts/<%= index %>"><%= post.title %></a></h2>
+                <div class="postimg">
+                <a href="/edit/<%= index %>" title="Edit"><img src="/images/edit.png" alt="edit" class="icon-img"></a>
+                <form method="post" action="/delete/<%= index %>" style="display:inline">
+                    <button type="submit" class="icon-btn" title="Delete" onclick="return confirm('Delete this post?');">
+                        <img src="/images/delete.png" alt="delete" class="icon-img">
+                    </button>
+                </form>
+            </div>
+            </div>
+        <% }); %>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>
+
+
