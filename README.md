@@ -64,8 +64,8 @@ First make sure Node.js is installed on your system
 
 Open terminal and run the following commands
 
-git clone [https://github.com/ved2222/blog-project.git](https://github.com/ved2222/blog-project.git)
-cd blog-project
+git clone https://github.com/ved2222/blogs.git
+cd blogs
 npm install
 
 After installing dependencies start the server
